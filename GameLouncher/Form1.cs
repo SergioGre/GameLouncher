@@ -87,133 +87,7 @@ namespace GameLouncher
         }
 
 
-        public class Global
-        {
-            public static Form mainForm;
-            public static PictureBox BgImage;
-            public static Button mainBut;
-            public static Label theName;
-
-            public static PictureBox picBox1;
-            public static PictureBox picBox2;
-            public static PictureBox picBox3;
-
-            public static string way;
-            public static Label waylb;
-        }
-
-        [Serializable]
-        public class GameApp
-        {
-            [XmlElement("ProcesWay")]
-            public string processWay;
-            [XmlElement("Name")]
-            public string name;
-
-            [XmlElement("Scrn1")]
-            public string scrn1;
-            [XmlElement("Scrn2")]
-            public string scrn2;
-            [XmlElement("Scrn3")]
-            public string scrn3;
-            [XmlElement("Scrn4")]
-            public string scrn4;
-            [XmlIgnore]
-            Icon io;
-
-            public Button CreateButton()
-            {
-                io = Icon.ExtractAssociatedIcon(processWay);
-
-                Button gameBut = new Button()
-                {
-                    Size = new Size(64, 64),
-                    BackgroundImage = io.ToBitmap(),
-                    BackgroundImageLayout = ImageLayout.Stretch,
-
-                };
-                gameBut.Click += new EventHandler(butClick);
-
-                return gameBut;
-            }
-
-
-            public void startGame()
-            {
-                Process.Start(processWay);
-
-            }
-
-            public GameApp(string gameName, string way, string pictureWay1, string pictureWay2, string pictureWay3, string pictureWay4)
-            {
-                scrn1 = pictureWay1;
-                scrn2 = pictureWay2;
-                scrn3 = pictureWay3;
-                scrn4 = pictureWay4;
-
-                name = gameName;
-                processWay = way;
-
-
-            }
-
-            public GameApp()
-            {
-
-            }
-
-            private void butClick(object sender, EventArgs e)
-            {
-                Global.BgImage.BackgroundImage = new Bitmap(scrn1);
-
-
-                Global.way = processWay;
-                Global.theName.Text = name;
-
-                Global.picBox1.BackgroundImage = new Bitmap(scrn2);
-                Global.picBox1.Visible = true;
-
-                Global.picBox2.BackgroundImage = new Bitmap(scrn3);
-                Global.picBox2.Visible = true;
-
-                Global.picBox3.BackgroundImage = new Bitmap(scrn4);
-                Global.picBox3.Visible = true;
-
-                Global.waylb.Text = processWay;
-            }
-
-            private void StartGames(object sender, EventArgs e)
-            {
-                Process.Start(processWay);
-            }
-
-
-        }
-
-        [Serializable]
-        public class Serializ
-        {
-
-            public static void Save(List<GameApp> GmList)
-            {
-                FileStream fs = new FileStream("SaveLoad.xml", FileMode.OpenOrCreate);
-                XmlSerializer serializer = new XmlSerializer(typeof(List<GameApp>));
-                serializer.Serialize(fs, GmList);
-
-                fs.Close();
-            }
-            public static List<GameApp> Load(List<GameApp> GmList)
-            {
-                FileStream fs = new FileStream("SaveLoad.xml", FileMode.OpenOrCreate);
-                XmlSerializer serializer = new XmlSerializer(typeof(List<GameApp>));
-
-                GmList = (List<GameApp>)serializer.Deserialize(fs);
-
-                fs.Close();
-
-                return GmList;
-            }
-        }
+       
 
 
 
@@ -244,6 +118,133 @@ namespace GameLouncher
 
     }
 
+    public class Global
+    {
+        public static Form mainForm;
+        public static PictureBox BgImage;
+        public static Button mainBut;
+        public static Label theName;
+
+        public static PictureBox picBox1;
+        public static PictureBox picBox2;
+        public static PictureBox picBox3;
+
+        public static string way;
+        public static Label waylb;
+    }
+
+    [Serializable]
+    public class GameApp
+    {
+        [XmlElement("ProcesWay")]
+        public string processWay;
+        [XmlElement("Name")]
+        public string name;
+
+        [XmlElement("Scrn1")]
+        public string scrn1;
+        [XmlElement("Scrn2")]
+        public string scrn2;
+        [XmlElement("Scrn3")]
+        public string scrn3;
+        [XmlElement("Scrn4")]
+        public string scrn4;
+        [XmlIgnore]
+        Icon io;
+
+        public Button CreateButton()
+        {
+            io = Icon.ExtractAssociatedIcon(processWay);
+
+            Button gameBut = new Button()
+            {
+                Size = new Size(64, 64),
+                BackgroundImage = io.ToBitmap(),
+                BackgroundImageLayout = ImageLayout.Stretch,
+
+            };
+            gameBut.Click += new EventHandler(butClick);
+
+            return gameBut;
+        }
+
+
+        public void startGame()
+        {
+            Process.Start(processWay);
+
+        }
+
+        public GameApp(string gameName, string way, string pictureWay1, string pictureWay2, string pictureWay3, string pictureWay4)
+        {
+            scrn1 = pictureWay1;
+            scrn2 = pictureWay2;
+            scrn3 = pictureWay3;
+            scrn4 = pictureWay4;
+
+            name = gameName;
+            processWay = way;
+
+
+        }
+
+        public GameApp()
+        {
+
+        }
+
+        private void butClick(object sender, EventArgs e)
+        {
+            Global.BgImage.BackgroundImage = new Bitmap(scrn1);
+
+
+            Global.way = processWay;
+            Global.theName.Text = name;
+
+            Global.picBox1.BackgroundImage = new Bitmap(scrn2);
+            Global.picBox1.Visible = true;
+
+            Global.picBox2.BackgroundImage = new Bitmap(scrn3);
+            Global.picBox2.Visible = true;
+
+            Global.picBox3.BackgroundImage = new Bitmap(scrn4);
+            Global.picBox3.Visible = true;
+
+            Global.waylb.Text = processWay;
+        }
+
+        private void StartGames(object sender, EventArgs e)
+        {
+            Process.Start(processWay);
+        }
+
+
+    }
+
+    [Serializable]
+    public class Serializ
+    {
+
+        public static void Save(List<GameApp> GmList)
+        {
+            FileStream fs = new FileStream("SaveLoad.xml", FileMode.OpenOrCreate);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<GameApp>));
+            serializer.Serialize(fs, GmList);
+
+            fs.Close();
+        }
+        public static List<GameApp> Load(List<GameApp> GmList)
+        {
+            FileStream fs = new FileStream("SaveLoad.xml", FileMode.OpenOrCreate);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<GameApp>));
+
+            GmList = (List<GameApp>)serializer.Deserialize(fs);
+
+            fs.Close();
+
+            return GmList;
+        }
+    }
 }   
 
     

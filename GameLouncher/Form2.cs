@@ -10,14 +10,22 @@ using System.Windows.Forms;
 using GameLouncher.Properties;
 using System.IO;
 using System.Xml.Serialization;
+using System.Runtime.InteropServices;
 
 
 
 
 namespace GameLouncher
 {
+
+    
+
+   
     public partial class Form2 : Form
     {
+        [DllImport("Shlwapi.dll")]
+        public static extern bool PathFileExistsA(String pszPath);
+
         string processWay2;
         string processName2;
 
@@ -28,7 +36,7 @@ namespace GameLouncher
         string scrn2 = null;
         string scrn3 = null;
 
-        public static List<Form1.GameApp> gameList = new List<Form1.GameApp>();
+        public static List<GameApp> gameList = new List<GameApp>();
         
 
         public Form2()
@@ -173,7 +181,7 @@ namespace GameLouncher
             if (mainScrn != null && scrn1 != null && scrn2 != null && scrn3 != null)
             {
                 
-                gameList.Add(new Form1.GameApp(processName2, processWay2, mainScrn, scrn1, scrn2, scrn3));
+                gameList.Add(new GameApp(processName2, processWay2, mainScrn, scrn1, scrn2, scrn3));
                 MessageBox.Show("Готово!");
 
                 scrBut1.Visible = false;
@@ -202,7 +210,7 @@ namespace GameLouncher
                 scrn3 = null;
 
                
-                Form1.Serializ.Save(gameList);
+                Serializ.Save(gameList);
                 //serializeList(gamAps);
             }
             else
